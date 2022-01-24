@@ -12,7 +12,7 @@ recognition.onresult = function run(e){
    console.log(content);
    document.getElementById("textbox").innerHTML = content;
    
-if(content == "Take my selfie." || content == "take my selfie"){
+if(content == "Take my selfie." || content == "take my selfie" || content == "Take my selfie"){
     console.log("taking selfie");
     speak();
 
@@ -21,11 +21,14 @@ if(content == "Take my selfie." || content == "take my selfie"){
 }
 function speak() {
     var talk = window.speechSynthesis;
-    var talking = "Taking your selfie in 5   4   3   2   1 BAM SELFIE";
+    var talking = "Taking your selfie in 5 5   4 4  3 3   2 2   1 1 BAM SELFIE";
     var utterthis = new SpeechSynthesisUtterance(talking);
     talk.speak(utterthis);
    console.log(utterthis);
    Webcam.attach(camera);
+   setTimeout(function(){
+       snapshot(); save();
+      }, 5000);
 } 
 
 Webcam.set({
@@ -34,3 +37,20 @@ Webcam.set({
 });
 camera= document.getElementById("camera");
 
+
+
+
+function snapshot(){
+    Webcam.snap(function(data){
+        document.getElementById("selfie").innerHTML= "<img id='self' src= '" + data + "' >";
+    });
+    
+
+}
+
+function save () {
+     storage = document.getElementById("link");
+     image = document.getElementById("self").src;
+     link.href = image;
+     link.click();
+}
